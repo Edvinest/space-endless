@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfptxjrnek8et"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_d5k31"]
+[ext_resource type="Texture2D" uid="uid://c0brj2j4na66d" path="res://spaceship-point-right.png" id="1_jdwbl"]
+[ext_resource type="Texture2D" uid="uid://d02pebqer723y" path="res://spaceship-point-up.png" id="2_8bye1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eu0q8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jdwbl")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8bye1")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lpun8"]
+radius = 16.0
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_d5k31")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_eu0q8")
+animation = &"right"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lpun8")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bepybmkl8rpoe"]
+
+[ext_resource type="PackedScene" uid="uid://viego578gfol" path="res://Player.tscn" id="1_5pos6"]
+[ext_resource type="Script" path="res://Main.gd" id="1_7uocg"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_7uocg")
+
+[node name="Player" parent="." instance=ExtResource("1_5pos6")]
+
+[node name="EnemyTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]

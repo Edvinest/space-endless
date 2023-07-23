@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://viego578gfol"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_duuhb"]
+[ext_resource type="Texture2D" uid="uid://c0brj2j4na66d" path="res://spaceship-point-right.png" id="1_k0vp0"]
+[ext_resource type="Texture2D" uid="uid://d02pebqer723y" path="res://spaceship-point-up.png" id="3_sk86x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iwmtx"]
+radius = 16.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_37qmy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_k0vp0")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_sk86x")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="Curve2D" id="Curve2D_o4bd8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -808, -501, 0, 0, 0, 0, 801, -498, 0, 0, 0, 0, 801, 506, 0, 0, 0, 0, -808, 501, 0, 0, 0, 0, -808, -501)
+}
+point_count = 5
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(640, 384)
+script = ExtResource("1_duuhb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.9, 0)
+shape = SubResource("CircleShape2D_iwmtx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_37qmy")
+animation = &"right"
+
+[node name="ShootPosition" type="Node2D" parent="."]
+position = Vector2(16, 0)
+
+[node name="FireTimer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_o4bd8")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-808, -501)
+rotation = 0.00186451
+
+[node name="Marker2D" type="Marker2D" parent="Path2D/PathFollow2D"]
+
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]
