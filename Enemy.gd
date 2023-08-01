@@ -1,19 +1,22 @@
 extends CharacterBody2D
 
+class_name Enemy
+
+@export var max_health : int = 1
 var speed : int = 450
-var player : CharacterBody2D
+var player : Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
 func _physics_process(delta):
-	_move(player, delta)
+	if player == null: player = get_tree().get_nodes_in_group("Player")[0]
+	if player != null: _move(player, delta)
 	
 func _move(target, delta):
 	var direction = (target.position - global_position).normalized()
@@ -26,3 +29,9 @@ func _move(target, delta):
 		rotation = rotation_angle
 		
 	move_and_slide()
+
+func _take_damage() -> void:
+	max_health -= 1
+	if max_health == 0:
+		queue_free()
+	print(max_health)
