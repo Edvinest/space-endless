@@ -34,4 +34,3 @@ func _take_damage() -> void:
 	max_health -= 1
 	if max_health == 0:
 		queue_free()
-	print(max_health)
