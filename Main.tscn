@@ -1,12 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://bepybmkl8rpoe"]
+[gd_scene load_steps=5 format=3 uid="uid://bepybmkl8rpoe"]
 
 [ext_resource type="PackedScene" uid="uid://viego578gfol" path="res://Player.tscn" id="1_5pos6"]
-[ext_resource type="Script" path="res://Main.gd" id="1_7uocg"]
+[ext_resource type="Texture2D" uid="uid://blhounana28av" path="res://star.png" id="3_834o7"]
+
+[sub_resource type="Curve" id="Curve_o8sjo"]
+_data = [Vector2(0.00246306, 1), 0.0, 0.0, 0, 0, Vector2(0.504926, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.629893), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_ylo0u"]
+offsets = PackedFloat32Array(0, 0.524862, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 
 [node name="Main" type="Node"]
-script = ExtResource("1_7uocg")
 
 [node name="Player" parent="." instance=ExtResource("1_5pos6")]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Player"]
+amount = 64
+lifetime = 5.0
+texture = ExtResource("3_834o7")
+emission_shape = 3
+emission_rect_extents = Vector2(2048, 1200)
+gravity = Vector2(0, 0)
+scale_amount_max = 2.5
+scale_amount_curve = SubResource("Curve_o8sjo")
+color_ramp = SubResource("Gradient_ylo0u")
 
 [node name="EnemyTimer" type="Timer" parent="."]
 
